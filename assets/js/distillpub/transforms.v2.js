@@ -773,48 +773,6 @@
   }
 
   // Copyright 2018 The Distill Template Authors
-
-  function parseBibliography(element) {
-    const scriptTag = element.firstElementChild;
-    if (scriptTag && scriptTag.tagName === "SCRIPT") {
-      if (scriptTag.type == "text/bibtex") {
-        const bibtex = element.firstElementChild.textContent;
-        return parseBibtex(bibtex);
-      } else if (scriptTag.type == "text/json") {
-        return new Map(JSON.parse(scriptTag.textContent));
-      } else {
-        console.warn("Unsupported bibliography script tag type: " + scriptTag.type);
-      }
-    } else {
-      console.warn("Bibliography did not have any script tag.");
-    }
-  }
-
-  // Copyright 2018 The Distill Template Authors
-
-  function ExtractBibliography(dom, data) {
-    const bibliographyTag = dom.querySelector("d-bibliography");
-    if (!bibliographyTag) {
-      console.warn("No bibliography tag found!");
-      return;
-    }
-
-    const src = bibliographyTag.getAttribute("src");
-    if (src) {
-      const path = data.inputDirectory + "/" + src;
-      const text = fs.readFileSync(path, "utf-8");
-      const bibliography = parseBibtex(text);
-      const scriptTag = dom.createElement("script");
-      scriptTag.type = "text/json";
-      scriptTag.textContent = JSON.stringify([...bibliography]);
-      bibliographyTag.appendChild(scriptTag);
-      bibliographyTag.removeAttribute("src");
-    }
-
-    data.bibliography = parseBibliography(bibliographyTag);
-  }
-
-  // Copyright 2018 The Distill Template Authors
   //
   // Licensed under the Apache License, Version 2.0 (the "License");
   // you may not use this file except in compliance with the License.
@@ -13738,7 +13696,7 @@
 
       if (data.publishedDate) {
         meta("citation_online_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
-        meta("citation_publication_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
+        meta("citation_talk_date", `${data.publishedYear}/${data.publishedMonthPadded}/${data.publishedDayPadded}`);
       }
 
       (data.authors || []).forEach((a) => {
@@ -13786,7 +13744,7 @@
     }
 
     if ("year" in ref) {
-      content += `citation_publication_date=${ref.year};`;
+      content += `citation_talk_date=${ref.year};`;
     }
 
     // Special test for arxiv
@@ -13961,7 +13919,6 @@
       parent.nodeName !== "D-BYLINE" &&
       parent.nodeName !== "D-MATH" &&
       parent.nodeName !== "D-CODE" &&
-      parent.nodeName !== "D-BIBLIOGRAPHY" &&
       parent.nodeName !== "D-FOOTER" &&
       parent.nodeName !== "D-APPENDIX" &&
       parent.nodeName !== "D-FRONTMATTER" &&
@@ -14459,7 +14416,6 @@ distill-header .nav a {
 
   const extractors = new Map([
     ["ExtractFrontmatter", ExtractFrontmatter],
-    ["ExtractBibliography", ExtractBibliography],
     ["ExtractCitations", ExtractCitations],
   ]);
 

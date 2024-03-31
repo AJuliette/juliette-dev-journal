@@ -1205,40 +1205,6 @@ ${math}
         Controller.listeners.onCiteKeyChanged(event);
       },
 
-      onBibliographyChanged(event) {
-        const citationListTag = document.querySelector("d-citation-list");
-
-        const bibliography = event.detail;
-
-        frontMatter.bibliography = bibliography;
-        frontMatter.bibliographyParsed = true;
-        for (const waitingCallback of Controller.waitingOn.bibliography.slice()) {
-          waitingCallback();
-        }
-
-        // ensure we have citations
-        if (!frontMatter.citationsCollected) {
-          Controller.waitingOn.citations.push(function () {
-            Controller.listeners.onBibliographyChanged({
-              target: event.target,
-              detail: event.detail,
-            });
-          });
-          return;
-        }
-
-        if (citationListTag.hasAttribute("distill-prerendered")) {
-          console.debug("Citation list was prerendered; not updating it.");
-        } else {
-          const entries = new Map(
-            frontMatter.citations.map((citationKey) => {
-              return [citationKey, frontMatter.bibliography.get(citationKey)];
-            })
-          );
-          citationListTag.citations = entries;
-        }
-      },
-
       onFootnoteChanged() {
         // const footnote = event.detail;
         //TODO: optimize to only update current footnote
@@ -1978,11 +1944,6 @@ d-appendix > distill-appendix {
 
   // Copyright 2018 The Distill Template Authors
 
-  class Bibliography extends HTMLElement {
-    static get is() {
-      return "d-bibliography";
-    }
-
     constructor() {
       super();
 
@@ -2024,12 +1985,6 @@ d-appendix > distill-appendix {
       } else {
         console.warn("Unsupported bibliography script tag type: " + scriptTag.type);
       }
-    }
-
-    notify(bibliography) {
-      const options = { detail: bibliography, bubbles: true };
-      const event = new CustomEvent("onBibliographyChanged", options);
-      this.dispatchEvent(event);
     }
 
     /* observe 'src' attribute */
@@ -9544,7 +9499,6 @@ distill-header .nav a {
       Abstract,
       Appendix,
       Article,
-      Bibliography,
       Byline,
       Cite,
       CitationList,

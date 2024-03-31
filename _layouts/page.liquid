@@ -11,9 +11,9 @@ layout: default
     {{ content }}
   </article>
 
-  {% if page.related_publications %}
+  {% if page.related_talks %}
     <h2>References</h2>
-    <div class="publications">
+    <div class="talks">
       {% bibliography --cited_in_order %}
     </div>
   {% endif %}

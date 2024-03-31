@@ -74,5 +74,3 @@ module Jekyll
         end
     end
 end
-
-Liquid::Template.register_tag('google_scholar_citations', Jekyll::GoogleScholarCitationsTag)
