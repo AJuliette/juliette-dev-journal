@@ -93,7 +93,7 @@ zotero_username: # your zotero username
 wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
 
 contact_note: >
-  <a href="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmI4dGR6bTdocDQwemRqMzl5YmpiZ2E1M2R3azltMGU1eWhtdGN6MCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ipx8LWw6AVHxL9JaGC/giphy.gif">How your e-mail finds me.</a>
+  <a href="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnExamJmNTEwNHRmZmppdHN4OTlybHRxd2FveXFxOGJjaGNocXE5NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ipx8LWw6AVHxL9JaGC/giphy.gif">How your e-mail finds me.</a>
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
