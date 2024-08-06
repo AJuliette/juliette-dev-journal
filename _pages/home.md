@@ -2,7 +2,7 @@
 layout: home
 title: home
 permalink: /
-subtitle: Web developer. Maker. Writer.
+subtitle: Web developer. Maker. Tech writer.
 
 profile:
   align: right
@@ -25,4 +25,4 @@ social: true # includes social icons at the bottom of the page
   </ul>
 </p>
 <p>Please reach out if we share common interests !</p>
-<p class="h6">And many thanks for stoping by.</p>
+<p class="h6">And many thanks for stopping by.</p>
